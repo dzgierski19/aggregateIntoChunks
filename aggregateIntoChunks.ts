@@ -27,7 +27,7 @@ const isArrayElementInRange = <T>(array: T[]): T[] | undefined => {
 
 const pushElementsToFinalArray = <T>(array: T[]) => {
   const secondEmptyArray: T[] = [];
-  const average = array.length / (FLOOR_NUMBER + CEIL_NUMBER);
+  const average = array.length / ((FLOOR_NUMBER + CEIL_NUMBER) / 2);
   for (let i = 0; i < average; i++) {
     isArrayElementInRange(array);
     secondEmptyArray.push(emptyArray.pop());
