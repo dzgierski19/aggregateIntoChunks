@@ -1,4 +1,4 @@
-const alphabet = "abcdefgijklmnopqrstuvwxyz".split("");
+const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 console.log(alphabet.length);
 const FLOOR_NUMBER = 4;
 const CEIL_NUMBER = 7;
@@ -14,6 +14,7 @@ const isArrayLengthInRange = <T>(array: T[]) => {
     throw new Error("You must provide array with at least 4 elements");
   }
 };
+
 const emptyArray: any[] = [];
 
 const isArrayElementInRange = <T>(array: T[]) => {
@@ -29,14 +30,18 @@ const isArrayElementInRange = <T>(array: T[]) => {
 const pushElementsToFinalArray = <T>(array: T[]) => {
   const secondEmptyArray: T[] = [];
   const average = Math.floor(array.length / ((FLOOR_NUMBER + CEIL_NUMBER) / 2));
-  for (let i = 0; i < average; i++) {
+  // for (let i = 0; i < average; i++) {
+  //   isArrayElementInRange(array);
+  //   secondEmptyArray.push(emptyArray.pop());
+  //
+  while (secondEmptyArray.length !== array.length) {
     isArrayElementInRange(array);
     secondEmptyArray.push(emptyArray.pop());
   }
-  return checkIfrArrayMeetsCriteria(secondEmptyArray, array);
+  return checkIfArrayMeetsCriteria(secondEmptyArray, array);
 };
 
-const checkIfrArrayMeetsCriteria = <T, K>(array1: T[], array2: (T | K)[]) => {
+const checkIfArrayMeetsCriteria = <T, K>(array1: T[], array2: (T | K)[]) => {
   if (array1.flat(1).length !== array2.length) {
     isArrayElementInRange(array1);
   }
