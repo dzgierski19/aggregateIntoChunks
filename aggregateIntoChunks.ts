@@ -1,11 +1,12 @@
-const alphabet = "abcdefghijklmnopqrstuvxyz".split("");
+const alphabet = "abcdefgijklmnopqrstuvwxyz".split("");
+console.log(alphabet.length);
 const FLOOR_NUMBER = 4;
 const CEIL_NUMBER = 7;
 
 const getRandomIntInRange = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.ceil(Math.random() * (max - min + 1) + min);
 };
 
 const isArrayLengthInRange = <T>(array: T[]) => {
@@ -15,7 +16,7 @@ const isArrayLengthInRange = <T>(array: T[]) => {
 };
 const emptyArray: any[] = [];
 
-const isArrayElementInRange = <T>(array: T[]): T[] | undefined => {
+const isArrayElementInRange = <T>(array: T[]) => {
   if (array.length >= FLOOR_NUMBER && array.length <= CEIL_NUMBER) {
     emptyArray.push(array);
     return emptyArray;
@@ -27,7 +28,7 @@ const isArrayElementInRange = <T>(array: T[]): T[] | undefined => {
 
 const pushElementsToFinalArray = <T>(array: T[]) => {
   const secondEmptyArray: T[] = [];
-  const average = array.length / ((FLOOR_NUMBER + CEIL_NUMBER) / 2);
+  const average = Math.floor(array.length / ((FLOOR_NUMBER + CEIL_NUMBER) / 2));
   for (let i = 0; i < average; i++) {
     isArrayElementInRange(array);
     secondEmptyArray.push(emptyArray.pop());
@@ -44,12 +45,14 @@ const checkIfrArrayMeetsCriteria = <T, K>(array1: T[], array2: (T | K)[]) => {
 
 const aggregateIntoChunks = <T>(array: T[]) => {
   isArrayLengthInRange(array);
+  if (FLOOR_NUMBER <= array.length && array.length <= CEIL_NUMBER) {
+    emptyArray.push(array);
+    return emptyArray;
+  }
   return pushElementsToFinalArray(array);
 };
 
 console.log(aggregateIntoChunks(alphabet));
-
-// console.log(aggregateIntoChunks(alphabet));
 
 // const chunks = aggregateIntoChunks(alphabet);
 
