@@ -15,13 +15,13 @@ const isArrayLengthInRange = <T>(array: T[]) => {
   }
 };
 
-const isArrayElementInRange = <T>(array: T[]) => {
-  if (array.length >= FLOOR_NUMBER && array.length <= CEIL_NUMBER) {
-    const arrayWithChunks: T[][] = [];
-    arrayWithChunks.push(array);
-    return arrayWithChunks;
-  }
-};
+// const isArrayElementInRange = <T>(array: T[]) => {
+//   if (array.length >= FLOOR_NUMBER && array.length <= CEIL_NUMBER) {
+//     const arrayWithChunks: T[][] = [];
+//     arrayWithChunks.push(array);
+//     return arrayWithChunks;
+//   }
+// };
 
 const pushElementsToFinalArray = <T>(array: T[]) => {
   const arrayWithChunks: T[][] = [];
