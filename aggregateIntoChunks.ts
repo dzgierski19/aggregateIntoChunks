@@ -6,7 +6,7 @@ const CEIL_NUMBER = 7;
 const getRandomIntInRange = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.ceil(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 const isArrayLengthInRange = <T>(array: T[]) => {
@@ -15,44 +15,37 @@ const isArrayLengthInRange = <T>(array: T[]) => {
   }
 };
 
-const emptyArray: any[] = [];
-
 const isArrayElementInRange = <T>(array: T[]) => {
   if (array.length >= FLOOR_NUMBER && array.length <= CEIL_NUMBER) {
-    emptyArray.push(array);
-    return emptyArray;
+    const arrayWithChunks: T[][] = [];
+    arrayWithChunks.push(array);
+    return arrayWithChunks;
   }
-  isArrayElementInRange(
-    array.splice(0, getRandomIntInRange(FLOOR_NUMBER, CEIL_NUMBER))
-  );
 };
 
 const pushElementsToFinalArray = <T>(array: T[]) => {
-  const secondEmptyArray: T[] = [];
-  const average = Math.floor(array.length / ((FLOOR_NUMBER + CEIL_NUMBER) / 2));
-  // for (let i = 0; i < average; i++) {
-  //   isArrayElementInRange(array);
-  //   secondEmptyArray.push(emptyArray.pop());
-  //
-  while (secondEmptyArray.length !== array.length) {
-    isArrayElementInRange(array);
-    secondEmptyArray.push(emptyArray.pop());
+  const arrayWithChunks: T[][] = [];
+  while (arrayWithChunks.length !== array.length) {
+    arrayWithChunks.push(
+      array.splice(0, getRandomIntInRange(FLOOR_NUMBER, CEIL_NUMBER))
+    );
   }
-  return checkIfArrayMeetsCriteria(secondEmptyArray, array);
-};
-
-const checkIfArrayMeetsCriteria = <T, K>(array1: T[], array2: (T | K)[]) => {
-  if (array1.flat(1).length !== array2.length) {
-    isArrayElementInRange(array1);
+  if (
+    array.flat(1).length >= FLOOR_NUMBER &&
+    array.flat(1).length <= CEIL_NUMBER
+  ) {
+    arrayWithChunks.push(array.splice(0));
+    return arrayWithChunks;
   }
-  return array1;
+  pushElementsToFinalArray(array);
 };
 
 const aggregateIntoChunks = <T>(array: T[]) => {
   isArrayLengthInRange(array);
+  const arrayWithChunks: T[][] = [];
   if (FLOOR_NUMBER <= array.length && array.length <= CEIL_NUMBER) {
-    emptyArray.push(array);
-    return emptyArray;
+    arrayWithChunks.push(array);
+    return arrayWithChunks;
   }
   return pushElementsToFinalArray(array);
 };
