@@ -1,7 +1,9 @@
-const alphabet = "abcdefghijklmnopqrstuvwxyzabcdefg".split("");
+const alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".split(
+  ""
+);
 console.log(alphabet.length);
-const FLOOR_NUMBER = 2;
-const CEIL_NUMBER = 7;
+const FLOOR_NUMBER: number = 10;
+const CEIL_NUMBER: number = 12;
 
 const getRandomIntInRange = (min: number, max: number) => {
   min = Math.ceil(min);
@@ -10,36 +12,62 @@ const getRandomIntInRange = (min: number, max: number) => {
 };
 
 const isArrayLengthInRange = <T>(array: T[]) => {
-  if (array.length < 4) {
-    throw new Error("You must provide array with at least 4 elements");
+  if (array.length < FLOOR_NUMBER) {
+    throw new Error(
+      "You must provide array with at least minimum required elements"
+    );
   }
 };
 
-const pushElementsToFinalArray = <T>(array: T[]) => {
+// const pushElementsToFinalArray = <T>(array: T[]) => {
+//   const arrayWithChunks: T[][] = [];
+//   while (array.length > CEIL_NUMBER) {
+//     arrayWithChunks.push(
+//       array.splice(0, getRandomIntInRange(FLOOR_NUMBER, CEIL_NUMBER))
+//     );
+//   }
+//   if (array.length >= FLOOR_NUMBER) {
+//     arrayWithChunks.push(array);
+//     return arrayWithChunks;
+//   }
+//   pushElementsToFinalArray(alphabet);
+// };
+
+// // console.log(pushElementsToFinalArray(alphabet));
+
+const pushElementsToFinalArray2 = <T>(array: T[]) => {
   const arrayWithChunks: T[][] = [];
   while (array.length > CEIL_NUMBER) {
     arrayWithChunks.push(
       array.splice(0, getRandomIntInRange(FLOOR_NUMBER, CEIL_NUMBER))
     );
   }
-  if (array.length >= FLOOR_NUMBER) {
-    arrayWithChunks.push(array);
+  if (array.length <= CEIL_NUMBER && array.length >= FLOOR_NUMBER) {
+    arrayWithChunks.push(array.splice(0, array.length));
+    console.log("between CEIL && FLOOR CHECK");
     return arrayWithChunks;
   }
-  pushElementsToFinalArray(alphabet);
-  // if (arrayWithChunks[arrayWithChunks.length - 1].length < FLOOR_NUMBER) {
-  //   pushElementsToFinalArray(alphabet);
-  // }
-  // return arrayWithChunks;
-
-  // if (array.length < FLOOR_NUMBER || array.length > CEIL_NUMBER) {
-  //   pushElementsToFinalArray(array);
-  // }
-  // arrayWithChunks.push(array.splice(0));
-  // pushElementsToFinalArray(array);
+  if (array.length < FLOOR_NUMBER) {
+    const lastBadChunk = array;
+    // const differenceBetFloorAndLastChunk =
+    //   arrayWithChunks[arrayWithChunks.length - 1].length - FLOOR_NUMBER;
+    const lastBadChunkDiff = FLOOR_NUMBER - lastBadChunk.length;
+    const lastGoodChunk: T[] = arrayWithChunks[arrayWithChunks.length - 1];
+    arrayWithChunks.push([
+      ...lastGoodChunk.splice(
+        lastGoodChunk.length - lastBadChunkDiff,
+        lastGoodChunk.length
+      ),
+      ...lastBadChunk,
+    ]);
+    // for (let i = 1; i <= arrayWithChunks.length; i++) {
+    //   if (arrayWithChunks[arrayWithChunks.length - i].length > FLOOR_NUMBER) {
+    //     return arrayWithChunks;
+    //   }
+    // }
+  }
+  return arrayWithChunks;
 };
-
-// console.log(pushElementsToFinalArray(alphabet));
 
 const aggregateIntoChunks = <T>(array: T[]) => {
   isArrayLengthInRange(array);
@@ -48,10 +76,12 @@ const aggregateIntoChunks = <T>(array: T[]) => {
     arrayWithChunks.push(array);
     return arrayWithChunks;
   }
-  return pushElementsToFinalArray(array);
+  return pushElementsToFinalArray2(array);
 };
 
 console.log(aggregateIntoChunks(alphabet));
+
+// console.log(aggregateIntoChunks(alphabet));
 
 // const chunks = aggregateIntoChunks(alphabet);
 
