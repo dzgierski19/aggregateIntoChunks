@@ -1,6 +1,6 @@
-const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+const alphabet = "abcdefghijklmnopqrstuvwxyzabcdefg".split("");
 console.log(alphabet.length);
-const FLOOR_NUMBER = 4;
+const FLOOR_NUMBER = 2;
 const CEIL_NUMBER = 7;
 
 const getRandomIntInRange = (min: number, max: number) => {
@@ -15,30 +15,31 @@ const isArrayLengthInRange = <T>(array: T[]) => {
   }
 };
 
-// const isArrayElementInRange = <T>(array: T[]) => {
-//   if (array.length >= FLOOR_NUMBER && array.length <= CEIL_NUMBER) {
-//     const arrayWithChunks: T[][] = [];
-//     arrayWithChunks.push(array);
-//     return arrayWithChunks;
-//   }
-// };
-
 const pushElementsToFinalArray = <T>(array: T[]) => {
   const arrayWithChunks: T[][] = [];
-  while (arrayWithChunks.length !== array.length) {
+  while (array.length > CEIL_NUMBER) {
     arrayWithChunks.push(
       array.splice(0, getRandomIntInRange(FLOOR_NUMBER, CEIL_NUMBER))
     );
   }
-  if (
-    array.flat(1).length >= FLOOR_NUMBER &&
-    array.flat(1).length <= CEIL_NUMBER
-  ) {
-    arrayWithChunks.push(array.splice(0));
+  if (array.length >= FLOOR_NUMBER) {
+    arrayWithChunks.push(array);
     return arrayWithChunks;
   }
-  pushElementsToFinalArray(array);
+  pushElementsToFinalArray(alphabet);
+  // if (arrayWithChunks[arrayWithChunks.length - 1].length < FLOOR_NUMBER) {
+  //   pushElementsToFinalArray(alphabet);
+  // }
+  // return arrayWithChunks;
+
+  // if (array.length < FLOOR_NUMBER || array.length > CEIL_NUMBER) {
+  //   pushElementsToFinalArray(array);
+  // }
+  // arrayWithChunks.push(array.splice(0));
+  // pushElementsToFinalArray(array);
 };
+
+// console.log(pushElementsToFinalArray(alphabet));
 
 const aggregateIntoChunks = <T>(array: T[]) => {
   isArrayLengthInRange(array);
