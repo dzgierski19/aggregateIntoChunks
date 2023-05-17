@@ -10,7 +10,7 @@ const aggregateIntoChunks = <T>(array: T[]) => {
     arrayWithChunks.push(array);
     return arrayWithChunks;
   }
-  return pushElementsToFinalArray2(array);
+  return pushElementsToFinalArray(array);
 };
 
 const isArrayLengthInRange = <T>(array: T[]) => {
@@ -26,7 +26,7 @@ const getRandomIntInRange = (min: number, max: number) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-const pushElementsToFinalArray2 = <T>(array: T[]) => {
+const pushElementsToFinalArray = <T>(array: T[]) => {
   const arrayWithChunks: T[][] = [];
   while (array.length > CEIL_NUMBER) {
     arrayWithChunks.push(
