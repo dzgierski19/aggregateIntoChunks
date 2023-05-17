@@ -1,7 +1,7 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 console.log(alphabet.length);
-const FLOOR_NUMBER: number = 10;
-const CEIL_NUMBER: number = 16;
+const FLOOR_NUMBER: number = 4;
+const CEIL_NUMBER: number = 6;
 
 const aggregateIntoChunks = <T>(array: T[]) => {
   isArrayLengthInRange(array);
@@ -48,16 +48,16 @@ const pushElementsToFinalArray2 = <T>(array: T[]) => {
     const newArray: T[][] = [];
     for (let i = 1; i <= arrayWithChunks.length - 1; i++) {
       let lastChunk = arrayWithChunks[arrayWithChunks.length - i];
-      let lastGoodChunk = arrayWithChunks[arrayWithChunks.length - i - 1];
-      let lastChunkDiff = FLOOR_NUMBER - lastChunk.length;
+      let penultimateChunk = arrayWithChunks[arrayWithChunks.length - i - 1];
+      let diffFloorAndLastChunkLength = FLOOR_NUMBER - lastChunk.length;
       if (lastChunk.length >= FLOOR_NUMBER) {
         newArray.push(lastChunk);
       }
       if (lastChunk.length < FLOOR_NUMBER) {
         newArray.push([
-          ...lastGoodChunk.splice(
-            lastGoodChunk.length - lastChunkDiff,
-            lastGoodChunk.length
+          ...penultimateChunk.splice(
+            penultimateChunk.length - diffFloorAndLastChunkLength,
+            penultimateChunk.length
           ),
           ...lastChunk,
         ]);
