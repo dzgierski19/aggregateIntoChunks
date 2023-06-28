@@ -76,5 +76,3 @@ const pushElementsToFinalArray = <T>(array: T[]) => {
   }
   return arrayWithChunks;
 };
-
-console.log(aggregateIntoChunks(alphabet));
