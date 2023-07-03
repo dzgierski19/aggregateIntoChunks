@@ -9,7 +9,7 @@ describe("aggregateIntoChunks testing", () => {
     );
     expect(doesEveryChunkHasMoreThan).toBe(true);
   });
-  it("should return proper when every chunk has more elements than FLOOR_NUMBER and less than CEIL_NUMBER", () => {
+  it("should return proper when sum of number of elements in every chunk is equal number of elements in parameter", () => {
     const alphabet2 = "abcdefghijklmnopqrstuvwxyz".split("");
     const doesEveryChunkHasMoreThan = result.reduce(
       (acc, a) => acc + a.length,
