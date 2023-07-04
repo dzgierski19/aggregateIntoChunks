@@ -1,21 +1,22 @@
 import { aggregateIntoChunks } from "../app/aggregateIntoChunks";
 
 describe("aggregateIntoChunks testing", () => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  const result = aggregateIntoChunks(alphabet);
+  let alphabet: string[];
+  let result: string[][];
+  beforeEach(() => {
+    alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    result = aggregateIntoChunks(alphabet);
+  });
+
   it("should return proper when every chunk has more elements than FLOOR_NUMBER and less than CEIL_NUMBER", () => {
-    const doesEveryChunkHasMoreThan = result.every(
+    const isEveryChunkInRange = result.every(
       (element) => element.length >= 5 && element.length <= 7
     );
-    expect(doesEveryChunkHasMoreThan).toBe(true);
+    expect(isEveryChunkInRange).toBe(true);
   });
   it("should return proper when sum of number of elements in every chunk is equal number of elements in parameter", () => {
-    const alphabet2 = "abcdefghijklmnopqrstuvwxyz".split("");
-    const doesEveryChunkHasMoreThan = result.reduce(
-      (acc, a) => acc + a.length,
-      0
-    );
-    expect(doesEveryChunkHasMoreThan).toBe(alphabet2.length);
+    const sumOfElementsInChunks = result.reduce((acc, a) => acc + a.length, 0);
+    expect(sumOfElementsInChunks).toBe(alphabet.length);
   });
   describe("it returns error when", () => {
     it("- floor number is higher than number of elements in array", () => {
